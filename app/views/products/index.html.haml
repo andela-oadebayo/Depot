@@ -1,0 +1,30 @@
+%div.container
+	%h1 All Products	
+	%table.table.table-hover
+		%thead
+			%tr
+				%th
+					ID
+				%th
+					Product Name
+				%th
+					Description
+				%th
+					Price
+				%th
+					Actions
+		%tbody
+			- @products.each do |product|
+				%tr
+					%td
+						= product.id
+					%td
+						= link_to product.name, product_path(product)
+					%td 
+						= product.description
+					%td
+						= product.price
+					%td
+						= link_to 'Edit', edit_product_path(product), :class => 'btn btn-default'
+						= link_to 'Delete', product_path(product), :method => :delete, data: {:confirm => 'Are you sure ?'}, :class => 'btn btn-danger'
+	= link_to 'New Product', new_product_path, :class => 'btn btn-primary'
