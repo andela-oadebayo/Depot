@@ -46,8 +46,8 @@ Rails.application.configure do
     domain:  "gmail.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: "username",
-    password:  "password"
+    user_name: "oluwadamilola.adebayo@andela.co",
+    password:  "smileyluv01"
   }
 
   # Raises error for missing translations
