@@ -48,11 +48,11 @@ describe ProductsController do
 	end
 
 	context "GET #edit" do
-		let(:product) { FactoryGirl.build(:product)}
+		let(:product) { FactoryGirl.create(:product)}
 
 		it "assigns the requested product as @product" do
-			expect(Product).to receive(:edit).and_return(product)
-			get :edit,{:id => product.id}
+			expect(Product).to receive(:find).and_return(product)
+			get :edit, id: product.id
 			expect(response).to be_success
 			expect(response).to render_template("edit")
 		end
@@ -60,22 +60,23 @@ describe ProductsController do
 
 	context "PUT #update" do
 		let(:product) { FactoryGirl.create(:product) }
-		let{:valid_porduct_params} { FactoryGirl.attributes_for(:name, :description, :price) }
-		let(:request_params)
+		let(:valid_product_params) { FactoryGirl.attributes_for(:product) }
 
 		it "updates the requested product" do
-			expect(product).to receive(:edit).and_return(product)
-			expect(product).to receive(:update).and_return(true)
-			put :update, {:id => product.id, :product => valid_porduct_params }
-			expect
+			expect(Product).to receive(:find).and_return(product)
+			expect(product).to receive(:update_attributes).and_return(true)
+			put :update, id: product.id, product: valid_product_params
+			expect(response).to be_redirect
+      expect(response).to redirect_to(products_path)
 		end
 	end
 
 	context "DELETE #destroy" do
 		let(:product) { FactoryGirl.create(:product) }
 		it "should delete a product" do
-			expect(product).to receive(:delete).to change(Product, :count).by(-1)
-			delete :destroy {:id => product.id}
+			expect(Product).to receive(:find).and_return(product)
+      expect(product).to receive(:destroy).and_return(true)
+			delete :destroy, id: product.id
 			expect(response).to redirect_to(products_path)
 		end
 	end
