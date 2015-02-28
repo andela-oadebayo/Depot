@@ -1,0 +1,40 @@
+%div.container
+  %h1 New User
+  = form_for @user, html: {class: 'form-horizontal' }, multipart: true do |f|
+    - if @user.errors.any?
+      %div.bg-background
+        = pluralize(@user.errors.count, 'error')
+    %div.form-group
+      = f.label :name, class: 'col-sm-2 control-label'
+      .col-sm-4
+        = f.text_field :name, class: 'form-control'
+        %h6.alert-danger.error= inline_error(@user, :name)
+    %div.form-group
+      = f.label :email, class: 'col-sm-2 control-label'
+      .col-sm-4
+        = f.text_field :email, class: 'form-control'
+        %h6.alert-danger.error= inline_error(@user, :email)
+    = f.fields_for :profile, setup_obj(@user, :profile) do |p|
+      %div.form-group
+        = p.label :nickname, class: 'col-sm-2 control-label'
+        .col-sm-4
+          = p.text_field :nickname, class: 'form-control'
+          %h6.alert-danger.error= inline_error(p.object, :nickname)
+      %div.form-group
+        = p.label :bio, class: 'col-sm-2 control-label'
+        .col-sm-4
+          = p.text_area :bio, class: 'form-control'
+          %h6.alert-danger.error= inline_error(p.object, :bio)
+      %div.form-group
+        = p.label :dob, class: 'col-sm-2 control-label'
+        .col-sm-4
+          = p.date_select :dob, class: 'form-control'
+          %h6.alert-danger.error= inline_error(p.object, :dob)
+      %div.form-group
+        = p.label :phone, class: 'col-sm-2 control-label'
+        .col-sm-4
+          = p.text_field :phone, class: 'form-control'
+          %h6.alert-danger.error= inline_error(p.object, :phone)
+    %div.form-group
+      .col-sm-offset-2.col-sm-10
+        = f.submit "Create User", class: "btn btn-default"

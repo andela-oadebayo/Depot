@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150211102228) do
+ActiveRecord::Schema.define(version: 20150228115707) do
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
@@ -23,6 +23,28 @@ ActiveRecord::Schema.define(version: 20150211102228) do
     t.decimal  "price",              precision: 10, scale: 2
     t.datetime "created_at",                                  null: false
     t.datetime "updated_at",                                  null: false
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "nickname"
+    t.text     "bio"
+    t.date     "dob"
+    t.string   "phone"
+    t.string   "profile_picture_file_name"
+    t.string   "profile_picture_content_type"
+    t.integer  "profile_picture_file_size"
+    t.datetime "profile_picture_updated_at"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
 end
